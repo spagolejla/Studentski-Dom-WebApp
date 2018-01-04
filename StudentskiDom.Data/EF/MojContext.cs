@@ -8,7 +8,31 @@ namespace StudentskiDom.Data.EF
 {
    public class MojContext: DbContext
     {
-		public DbSet<Drzava> Drzave { get; set; }
+     
+        public MojContext(DbContextOptions<MojContext> options)
+      : base(options)
+        {
+
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        {
+
+            base.OnModelCreating(modelBuilder);
+
+
+
+            
+
+
+
+            
+
+        }
+
+        public DbSet<Drzava> Drzave { get; set; }
 		public DbSet<Regija> Regije { get; set; }
 		public DbSet<Grad> Gradovi { get; set; }
 		public DbSet<AkademskaGodina> AkademskeGodine { get; set; }
@@ -17,7 +41,9 @@ namespace StudentskiDom.Data.EF
 		public DbSet<Posjetilac> Pojsjetioci { get; set; }
 		public DbSet<VrstaZaposlenika> VrsteZaposlenika { get; set; }
 		public DbSet<Zaposlenik> Zaposlenici { get; set; }
-		public DbSet<Soba> Sobe { get; set; }
+        public DbSet<Korisnik> Korisnici { get; set; }
+
+        public DbSet<Soba> Sobe { get; set; }
 		public DbSet<Sala> Sale { get; set; }
 		public DbSet<TipUplate> TipoviUplata { get; set; }
 		public DbSet<TipSobe> TipoviSoba { get; set; }
@@ -27,11 +53,12 @@ namespace StudentskiDom.Data.EF
 		public DbSet<RezervacijaSale> RezervacijeSale { get; set; }
 		public DbSet<Uplata> Uplate { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlServer("Server=localhost;Database=BazaStudentskiDom;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=sa;Password=test");
-		}
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+            
+        //    optionsBuilder.UseSqlServer("Server=localhost;Database=BazaStudentskiDom;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=sa;Password=test");
+        //}
 
 
-	}
+    }
 }
