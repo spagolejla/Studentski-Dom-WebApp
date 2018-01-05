@@ -24,13 +24,53 @@ namespace StudentskiDom.Data.EF
 
 
 
-            
+            modelBuilder.Entity<StudentSoba>()
+
+                .HasOne(s => s._Student)
+
+                .WithMany()
+
+                .HasForeignKey(s => s._StudentId)
+
+                .OnDelete(DeleteBehavior.Restrict);
 
 
+            modelBuilder.Entity<StudentSoba>()
 
-            
+               .HasOne(so => so._Soba)
+
+               .WithMany()
+
+               .HasForeignKey(so => so._SobaId)
+
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<StudentSoba>()
+
+               .HasOne(z => z._Zaposlenik)
+
+               .WithMany()
+
+               .HasForeignKey(z => z._ZaposlenikId)
+
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<StudentSoba>()
+
+               .HasOne(ag => ag._AkademskaGodina)
+
+               .WithMany()
+
+               .HasForeignKey(ag => ag._AkademskaGodinaId)
+
+               .OnDelete(DeleteBehavior.Restrict);
+
+
+          
+
 
         }
+
 
         public DbSet<Drzava> Drzave { get; set; }
 		public DbSet<Regija> Regije { get; set; }
