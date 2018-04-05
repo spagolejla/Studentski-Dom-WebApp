@@ -27,8 +27,10 @@ namespace StudentskiDom.Data.Models
 		[ForeignKey(nameof(_Grad))]
 		public int? _GradId { get; set; }
 
-        public Korisnik _Korisnik { get; set; }
-        [ForeignKey(nameof(_Korisnik))]
-        public int KorisnikId { get; set; }
+		[ForeignKey(nameof(KorisnickiNalog))]
+		public int? KorisnickiNalogId { get; set; }
+		public KorisnickiNalog KorisnickiNalog { get; set; }
+
+	
     }
 }

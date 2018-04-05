@@ -28,8 +28,10 @@ namespace StudentskiDom.Web
             services.AddDbContext<MojContext>(options =>
 
                options.UseSqlServer(Configuration.GetConnectionString("APP")));
+			services.AddMvc();
 
-            services.AddMvc();
+			services.AddDistributedMemoryCache();
+			services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,13 +47,21 @@ namespace StudentskiDom.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+			app.UseSession();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
+				routes.MapRoute(
+			name: "areas",
+			template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+				routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+
             });
         }
     }

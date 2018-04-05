@@ -6,11 +6,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
 
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
 
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +23,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StudentskiDom.Data\StudentskiDom.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\ManagerModul\Controllers\" />
+    <Folder Include="Areas\ManagerModul\Data\" />
+    <Folder Include="Areas\ManagerModul\Models\" />
+    <Folder Include="Areas\ManagerModul\Views\" />
+    <Folder Include="Areas\RecepcionerModul\Controllers\" />
+    <Folder Include="Areas\RecepcionerModul\Data\" />
+    <Folder Include="Areas\RecepcionerModul\Models\" />
+    <Folder Include="Areas\RecepcionerModul\Views\" />
+    <Folder Include="Areas\StudentModul\Controllers\" />
+    <Folder Include="Areas\StudentModul\Data\" />
+    <Folder Include="Areas\StudentModul\Models\" />
+    <Folder Include="Areas\StudentModul\Views\" />
   </ItemGroup>
 
 </Project>

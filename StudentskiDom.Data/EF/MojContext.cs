@@ -81,7 +81,7 @@ namespace StudentskiDom.Data.EF
 		public DbSet<Posjetilac> Pojsjetioci { get; set; }
 		public DbSet<VrstaZaposlenika> VrsteZaposlenika { get; set; }
 		public DbSet<Zaposlenik> Zaposlenici { get; set; }
-        public DbSet<Korisnik> Korisnici { get; set; }
+        public DbSet<KorisnickiNalog> KorisnickiNalozi { get; set; }
 
         public DbSet<Soba> Sobe { get; set; }
 		public DbSet<Sala> Sale { get; set; }

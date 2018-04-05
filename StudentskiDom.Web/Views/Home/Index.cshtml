@@ -1,36 +1,26 @@
-﻿
+﻿@using StudentskiDom.Data.Models
+@using StudentskiDom.Web.ViewModel
 @{
     ViewData["Title"] = "Home Page";
-    List<StudentskiDom.Data.Models.Drzava> lista = Model;
+    var ulazniModel = (HomeIndexVM)ViewData["ulazniModel"];
 }
 
 
 <div class="jumbotron">
     <h1>Studentski Dom</h1>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Dobrodošli! </h2>
-
-        @*<table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var x in lista)
-        {
-            <tr>
-                <td>@(x.Id)</td>
-                <td>@(x.Naziv)</td>
-                
-            </tr>
-
-}
-            </tbody>
-        </table>*@
-
+<h4>Prikaz podataka iz tabele Drzave (test)</h4>
+<table class="table table-bordered">
+    <thead><tr><th>ID</th><th>Naziv</th></tr></thead>
+    <tbody>
+        @{foreach (var x in ulazniModel.Rows)
+            {
+            <tr><td>@x.DrzavaID</td>
+         <td>@x.NazivDrzave</td>
         
+        </tr>
+            }
+            }
+    </tbody>
+</table>
+

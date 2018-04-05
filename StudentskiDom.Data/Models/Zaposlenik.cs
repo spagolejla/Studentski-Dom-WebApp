@@ -23,9 +23,9 @@ namespace StudentskiDom.Data.Models
 		[ForeignKey(nameof(_VrstaZaposlenika))]
 		public int? _VrstaZaposlenikaId { get; set; }
 
-       
-        public Korisnik _Korisnik { get; set; }
-        [ForeignKey(nameof(_Korisnik))]
-        public int KorisnikId { get; set; }
-    }
+
+		[ForeignKey(nameof(KorisnickiNalog))]
+		public int? KorisnickiNalogId { get; set; }
+		public KorisnickiNalog KorisnickiNalog { get; set; }
+	}
 }
