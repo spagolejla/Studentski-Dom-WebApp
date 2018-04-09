@@ -1,26 +1,10 @@
-﻿@using StudentskiDom.Data.Models
-@using StudentskiDom.Web.ViewModel
+﻿
 @{
-    ViewData["Title"] = "Home Page";
-    var ulazniModel = (HomeIndexVM)ViewData["ulazniModel"];
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Index</h2>
+<a asp-area="RecepcionerModul" asp-controller="Home" asp-action="Index">Idi na RecepcionerModul</a>
 
-<div class="jumbotron">
-    <h1>Studentski Dom</h1>
-</div>
-<h4>Prikaz podataka iz tabele Drzave (test)</h4>
-<table class="table table-bordered">
-    <thead><tr><th>ID</th><th>Naziv</th></tr></thead>
-    <tbody>
-        @{foreach (var x in ulazniModel.Rows)
-            {
-            <tr><td>@x.DrzavaID</td>
-         <td>@x.NazivDrzave</td>
-        
-        </tr>
-            }
-            }
-    </tbody>
-</table>
 

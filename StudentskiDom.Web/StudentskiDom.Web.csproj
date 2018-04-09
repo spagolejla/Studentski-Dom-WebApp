@@ -30,14 +30,13 @@
     <Folder Include="Areas\ManagerModul\Data\" />
     <Folder Include="Areas\ManagerModul\Models\" />
     <Folder Include="Areas\ManagerModul\Views\" />
-    <Folder Include="Areas\RecepcionerModul\Controllers\" />
     <Folder Include="Areas\RecepcionerModul\Data\" />
     <Folder Include="Areas\RecepcionerModul\Models\" />
-    <Folder Include="Areas\RecepcionerModul\Views\" />
     <Folder Include="Areas\StudentModul\Controllers\" />
     <Folder Include="Areas\StudentModul\Data\" />
-    <Folder Include="Areas\StudentModul\Models\" />
+    <Folder Include="Areas\StudentModul\ViewModels\" />
     <Folder Include="Areas\StudentModul\Views\" />
+    <Folder Include="wwwroot\vendor\" />
   </ItemGroup>
 
 </Project>
