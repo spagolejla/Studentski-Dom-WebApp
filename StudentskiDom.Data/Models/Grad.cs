@@ -12,8 +12,8 @@ namespace StudentskiDom.Data.Models
 		[Key]
 		public int Id { get; set; }
 		public string Naziv { get; set; }
-		public Regija _Regija { get; set; }
-		[ForeignKey(nameof(_Regija))]
-		public int _RegijaId { get; set; }
+		public Drzava _Drzava { get; set; }
+		[ForeignKey(nameof(_Drzava))]
+		public int _DrzavaId { get; set; }
 	}
 }

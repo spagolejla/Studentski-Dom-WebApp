@@ -13,11 +13,11 @@
 		<i class="fa fa-table"></i> Osnovni podaci
 	</div>
 	<div class="card-body">
-		<form>
+		<form >
 			<div class="form-group">
 				<div class="form-row">
 					<div class="col-md-6">
-						<label>Ime i Prezime</label>
+						<label>Ime i prezime</label>
 						<input type="text" readonly value=" @Model.Ime  @Model.Prezime" style="border:none" class="form-control" />
 					</div>
 					<div class="col-md-6">
@@ -54,6 +54,8 @@
 				</div>
 			</div>
 		</form>
+		<a type="submit" class="btn btn-outline-secondary" style="float:right" href="/RecepcionerModul/Studenti/Edit?id=@Model.Id">Ažuriraj</a>
+
 	</div>
 
 </div>
@@ -62,7 +64,7 @@
 		<i class="fa fa-table"></i> Kontakt podaci
 	</div>
 	<div class="card-body">
-		<form>
+		<form asp-route="/ModulRecepcioner/Studenti/Edit">
 			<div class="form-group">
 
 				<label>Email</label>
@@ -75,8 +77,14 @@
 			</div>
 
 
+			
+
+
+
 
 		</form>
+		<a type="submit" class="btn btn-outline-secondary" style="float:right" href="/RecepcionerModul/Studenti/Edit?id=@Model.Id">Ažuriraj</a>
+
 	</div>
 </div>
 
@@ -103,14 +111,16 @@
 				<input type="text" readonly value="@Model.Soba_" style="border:none" class="form-control" />
 			</div>
 			@*<div class="form-group">
-				<label>Studenti sa kojima dijeli sobu</label>
-				@foreach (var x in Model.studentiSaKojimaDijeliSobu)
-	{
-			<input type="text" readonly value="@x" style="border:none" class="form-control" />
-}
-			</div>*@
+							<label>Studenti sa kojima dijeli sobu</label>
+							@foreach (var x in Model.studentiSaKojimaDijeliSobu)
+				{
+						<input type="text" readonly value="@x" style="border:none" class="form-control" />
+			}
+						</div>*@
 
-
+		
 		</form>
+		<a type="submit" class="btn btn-outline-secondary" style="float:right" href="/RecepcionerModul/Studenti/Edit?id=@Model.Id">Ažuriraj</a>
+
 	</div>
 </div>

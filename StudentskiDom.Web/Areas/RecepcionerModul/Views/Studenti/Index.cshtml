@@ -23,11 +23,11 @@
 	<h2 style="display:inline-block">Upisani studenti</h2> <a href="/RecepcionerModul/Studenti/Dodaj" class="btn btn-success" style="float:right">Dodaj novog</a><a href="/RecepcionerModul" class="btn btn-primary" style="float:right;margin-right:10px">Nazad</a>
 </div>
 <hr />
-<form class="form-inline my-2 my-lg-0 mr-lg-2">
+<form asp-route="/ModulRecepcioner/Studenti/Index"  method="get"  class="form-inline my-2 my-lg-0 mr-lg-2">
 	<div class="input-group">
-		<input class="form-control" type="text" placeholder="Pretraga studenata...">
+		<input class="form-control" type="text" placeholder="Pretraga studenata..." name="searchString">
 		<span class="input-group-append">
-			<button class="btn btn-primary" type="button">
+			<button class="btn btn-primary" type="submit">
 				<i class="fa fa-search"></i>
 			</button>
 		</span>
@@ -78,7 +78,7 @@
 							<td>@x.Grad</td>
 							@{if (x.Soba_ == null)
 								{
-									<td><a href="#">Dodaj</a></td>
+									<td><a href="/RecepcionerModul/Studenti/DodajUSobu?id=@x.Id">Dodaj</a></td>
 								}
 								else
 								{

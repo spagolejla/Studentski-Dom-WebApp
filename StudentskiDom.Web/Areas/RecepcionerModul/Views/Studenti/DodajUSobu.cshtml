@@ -1,0 +1,36 @@
+﻿@using StudentskiDom.Web.Areas.RecepcionerModul.ViewModels
+
+@{
+	ViewData["Title"] = "DodajUSobu";
+	Layout = "~/Views/Shared/_Layout-novi2.cshtml";
+}
+@model StudentiDodajUSobuVM
+
+<h3>Dodavanje studnta u sobu</h3>
+<form asp-area="RecepcionerModul" asp-controller="Studenti" asp-action="SnimiDodavanjeUSobu">
+	<div class="col-md-6">
+		<label>Student</label>
+		<input type="text" readonly value=" @Model.ImeiPrezime" style="border:none" class="form-control" />
+		<input type="text" hidden asp-for="@Model.StudentId" style="border:none" class="form-control" />
+
+	</div>
+	<div class="form-group">
+
+		<label>
+			Dodaj u sobu:
+		</label>
+		<select asp-for="@Model.SlobodnaSobaId" asp-items="@Model.SlobodneSobe" class="form-control"></select>
+	</div>
+	<div class="form-group">
+
+		<label>
+			Dodavanje izvršio:
+		</label>
+		<select asp-for="@Model.ZaposlnikID" asp-items="@Model.Zaposlenici" class="form-control"></select>
+	</div>
+	<div>
+
+		<input type="submit" value="Snimi" class="btn btn-primary " />
+	</div>
+
+</form>

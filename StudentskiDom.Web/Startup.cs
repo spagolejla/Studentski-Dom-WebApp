@@ -27,7 +27,7 @@ namespace StudentskiDom.Web
             
             services.AddDbContext<MojContext>(options =>
 
-               options.UseSqlServer(Configuration.GetConnectionString("APP")));
+               options.UseSqlServer(Configuration.GetConnectionString("Lokalni")));
 			services.AddMvc();
 
 			services.AddDistributedMemoryCache();

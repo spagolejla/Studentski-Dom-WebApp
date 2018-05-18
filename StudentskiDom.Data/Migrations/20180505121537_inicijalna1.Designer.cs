@@ -11,8 +11,8 @@ using System;
 namespace StudentskiDom.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    [Migration("20180405113950_migracija1")]
-    partial class migracija1
+    [Migration("20180505121537_inicijalna1")]
+    partial class inicijalna1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,18 +20,6 @@ namespace StudentskiDom.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("StudentskiDom.Data.Models.AkademskaGodina", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Naziv");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AkademskeGodine");
-                });
 
             modelBuilder.Entity("StudentskiDom.Data.Models.Drzava", b =>
                 {
@@ -68,11 +56,11 @@ namespace StudentskiDom.Data.Migrations
 
                     b.Property<string>("Naziv");
 
-                    b.Property<int>("_RegijaId");
+                    b.Property<int>("_DrzavaId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_RegijaId");
+                    b.HasIndex("_DrzavaId");
 
                     b.ToTable("Gradovi");
                 });
@@ -89,6 +77,32 @@ namespace StudentskiDom.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KorisnickiNalozi");
+                });
+
+            modelBuilder.Entity("StudentskiDom.Data.Models.Obavijesti", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Datum");
+
+                    b.Property<string>("Naslov");
+
+                    b.Property<string>("Sadrzaj");
+
+                    b.Property<int>("_ZaposlenikId");
+
+                    b.Property<bool>("procitana");
+
+                    b.Property<bool>("samoZaposlenicima");
+
+                    b.Property<bool>("zaSve");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("_ZaposlenikId");
+
+                    b.ToTable("Obavijesti");
                 });
 
             modelBuilder.Entity("StudentskiDom.Data.Models.Posjetilac", b =>
@@ -109,22 +123,6 @@ namespace StudentskiDom.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pojsjetioci");
-                });
-
-            modelBuilder.Entity("StudentskiDom.Data.Models.Regija", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Naziv");
-
-                    b.Property<int>("_DrzavaId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("_DrzavaId");
-
-                    b.ToTable("Regije");
                 });
 
             modelBuilder.Entity("StudentskiDom.Data.Models.RezervacijaSale", b =>
@@ -238,8 +236,6 @@ namespace StudentskiDom.Data.Migrations
 
                     b.Property<string>("Napomena");
 
-                    b.Property<int>("_AkademskaGodinaId");
-
                     b.Property<int>("_SobaId");
 
                     b.Property<int>("_StudentId");
@@ -248,8 +244,6 @@ namespace StudentskiDom.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_AkademskaGodinaId");
-
                     b.HasIndex("_SobaId");
 
                     b.HasIndex("_StudentId");
@@ -257,28 +251,6 @@ namespace StudentskiDom.Data.Migrations
                     b.HasIndex("_ZaposlenikId");
 
                     b.ToTable("StudentiSobe");
-                });
-
-            modelBuilder.Entity("StudentskiDom.Data.Models.TerminVeseraja", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DatumKoristenja");
-
-                    b.Property<int>("VrijemeKoristenja");
-
-                    b.Property<int>("_StudentSobaId");
-
-                    b.Property<int>("_VesMasinaId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("_StudentSobaId");
-
-                    b.HasIndex("_VesMasinaId");
-
-                    b.ToTable("TerminiVeseraja");
                 });
 
             modelBuilder.Entity("StudentskiDom.Data.Models.TipSobe", b =>
@@ -331,22 +303,6 @@ namespace StudentskiDom.Data.Migrations
                     b.ToTable("Uplate");
                 });
 
-            modelBuilder.Entity("StudentskiDom.Data.Models.VesMasina", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Kapacitet");
-
-                    b.Property<string>("Naziv");
-
-                    b.Property<bool>("Susilica");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VesMasine");
-                });
-
             modelBuilder.Entity("StudentskiDom.Data.Models.VrstaZaposlenika", b =>
                 {
                     b.Property<int>("Id")
@@ -395,17 +351,17 @@ namespace StudentskiDom.Data.Migrations
 
             modelBuilder.Entity("StudentskiDom.Data.Models.Grad", b =>
                 {
-                    b.HasOne("StudentskiDom.Data.Models.Regija", "_Regija")
-                        .WithMany()
-                        .HasForeignKey("_RegijaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("StudentskiDom.Data.Models.Regija", b =>
-                {
                     b.HasOne("StudentskiDom.Data.Models.Drzava", "_Drzava")
                         .WithMany()
                         .HasForeignKey("_DrzavaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("StudentskiDom.Data.Models.Obavijesti", b =>
+                {
+                    b.HasOne("StudentskiDom.Data.Models.Zaposlenik", "_Zaposlenik")
+                        .WithMany()
+                        .HasForeignKey("_ZaposlenikId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -451,11 +407,6 @@ namespace StudentskiDom.Data.Migrations
 
             modelBuilder.Entity("StudentskiDom.Data.Models.StudentSoba", b =>
                 {
-                    b.HasOne("StudentskiDom.Data.Models.AkademskaGodina", "_AkademskaGodina")
-                        .WithMany()
-                        .HasForeignKey("_AkademskaGodinaId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("StudentskiDom.Data.Models.Soba", "_Soba")
                         .WithMany()
                         .HasForeignKey("_SobaId")
@@ -470,19 +421,6 @@ namespace StudentskiDom.Data.Migrations
                         .WithMany()
                         .HasForeignKey("_ZaposlenikId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("StudentskiDom.Data.Models.TerminVeseraja", b =>
-                {
-                    b.HasOne("StudentskiDom.Data.Models.StudentSoba", "_StudentSoba")
-                        .WithMany()
-                        .HasForeignKey("_StudentSobaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("StudentskiDom.Data.Models.VesMasina", "_VesMasina")
-                        .WithMany()
-                        .HasForeignKey("_VesMasinaId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StudentskiDom.Data.Models.Uplata", b =>

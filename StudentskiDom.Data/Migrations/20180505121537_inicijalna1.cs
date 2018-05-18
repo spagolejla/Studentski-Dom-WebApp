@@ -5,23 +5,10 @@ using System.Collections.Generic;
 
 namespace StudentskiDom.Data.Migrations
 {
-    public partial class migracija1 : Migration
+    public partial class inicijalna1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "AkademskeGodine",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Naziv = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AkademskeGodine", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Drzave",
                 columns: table => new
@@ -123,21 +110,6 @@ namespace StudentskiDom.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VesMasine",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Kapacitet = table.Column<int>(nullable: false),
-                    Naziv = table.Column<string>(nullable: true),
-                    Susilica = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VesMasine", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "VrsteZaposlenika",
                 columns: table => new
                 {
@@ -152,7 +124,7 @@ namespace StudentskiDom.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Regije",
+                name: "Gradovi",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -162,9 +134,9 @@ namespace StudentskiDom.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Regije", x => x.Id);
+                    table.PrimaryKey("PK_Gradovi", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Regije_Drzave__DrzavaId",
+                        name: "FK_Gradovi_Drzave__DrzavaId",
                         column: x => x._DrzavaId,
                         principalTable: "Drzave",
                         principalColumn: "Id",
@@ -191,26 +163,6 @@ namespace StudentskiDom.Data.Migrations
                         principalTable: "TipoviSoba",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Gradovi",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Naziv = table.Column<string>(nullable: true),
-                    _RegijaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Gradovi", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Gradovi_Regije__RegijaId",
-                        column: x => x._RegijaId,
-                        principalTable: "Regije",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -293,6 +245,31 @@ namespace StudentskiDom.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Obavijesti",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Datum = table.Column<DateTime>(nullable: false),
+                    Naslov = table.Column<string>(nullable: true),
+                    Sadrzaj = table.Column<string>(nullable: true),
+                    _ZaposlenikId = table.Column<int>(nullable: false),
+                    procitana = table.Column<bool>(nullable: false),
+                    samoZaposlenicima = table.Column<bool>(nullable: false),
+                    zaSve = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Obavijesti", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Obavijesti_Zaposlenici__ZaposlenikId",
+                        column: x => x._ZaposlenikId,
+                        principalTable: "Zaposlenici",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RezervacijeSale",
                 columns: table => new
                 {
@@ -336,7 +313,6 @@ namespace StudentskiDom.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DatumDodjele = table.Column<DateTime>(nullable: false),
                     Napomena = table.Column<string>(nullable: true),
-                    _AkademskaGodinaId = table.Column<int>(nullable: false),
                     _SobaId = table.Column<int>(nullable: false),
                     _StudentId = table.Column<int>(nullable: false),
                     _ZaposlenikId = table.Column<int>(nullable: false)
@@ -344,12 +320,6 @@ namespace StudentskiDom.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudentiSobe", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StudentiSobe_AkademskeGodine__AkademskaGodinaId",
-                        column: x => x._AkademskaGodinaId,
-                        principalTable: "AkademskeGodine",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudentiSobe_Sobe__SobaId",
                         column: x => x._SobaId,
@@ -368,34 +338,6 @@ namespace StudentskiDom.Data.Migrations
                         principalTable: "Zaposlenici",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TerminiVeseraja",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DatumKoristenja = table.Column<DateTime>(nullable: false),
-                    VrijemeKoristenja = table.Column<int>(nullable: false),
-                    _StudentSobaId = table.Column<int>(nullable: false),
-                    _VesMasinaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TerminiVeseraja", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TerminiVeseraja_StudentiSobe__StudentSobaId",
-                        column: x => x._StudentSobaId,
-                        principalTable: "StudentiSobe",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TerminiVeseraja_VesMasine__VesMasinaId",
-                        column: x => x._VesMasinaId,
-                        principalTable: "VesMasine",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -434,14 +376,14 @@ namespace StudentskiDom.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gradovi__RegijaId",
+                name: "IX_Gradovi__DrzavaId",
                 table: "Gradovi",
-                column: "_RegijaId");
+                column: "_DrzavaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Regije__DrzavaId",
-                table: "Regije",
-                column: "_DrzavaId");
+                name: "IX_Obavijesti__ZaposlenikId",
+                table: "Obavijesti",
+                column: "_ZaposlenikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RezervacijeSale__PosjetilacId",
@@ -479,11 +421,6 @@ namespace StudentskiDom.Data.Migrations
                 column: "_GradId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentiSobe__AkademskaGodinaId",
-                table: "StudentiSobe",
-                column: "_AkademskaGodinaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StudentiSobe__SobaId",
                 table: "StudentiSobe",
                 column: "_SobaId");
@@ -497,16 +434,6 @@ namespace StudentskiDom.Data.Migrations
                 name: "IX_StudentiSobe__ZaposlenikId",
                 table: "StudentiSobe",
                 column: "_ZaposlenikId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TerminiVeseraja__StudentSobaId",
-                table: "TerminiVeseraja",
-                column: "_StudentSobaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TerminiVeseraja__VesMasinaId",
-                table: "TerminiVeseraja",
-                column: "_VesMasinaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Uplate__StudentSobaId",
@@ -542,10 +469,10 @@ namespace StudentskiDom.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RezervacijeSale");
+                name: "Obavijesti");
 
             migrationBuilder.DropTable(
-                name: "TerminiVeseraja");
+                name: "RezervacijeSale");
 
             migrationBuilder.DropTable(
                 name: "Uplate");
@@ -557,16 +484,10 @@ namespace StudentskiDom.Data.Migrations
                 name: "Sale");
 
             migrationBuilder.DropTable(
-                name: "VesMasine");
-
-            migrationBuilder.DropTable(
                 name: "StudentiSobe");
 
             migrationBuilder.DropTable(
                 name: "TipoviUplata");
-
-            migrationBuilder.DropTable(
-                name: "AkademskeGodine");
 
             migrationBuilder.DropTable(
                 name: "Sobe");
@@ -591,9 +512,6 @@ namespace StudentskiDom.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "VrsteZaposlenika");
-
-            migrationBuilder.DropTable(
-                name: "Regije");
 
             migrationBuilder.DropTable(
                 name: "Drzave");

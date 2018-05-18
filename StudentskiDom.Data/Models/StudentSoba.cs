@@ -14,10 +14,7 @@ namespace StudentskiDom.Data.Models
 		public DateTime DatumDodjele { get; set; }
 		public string Napomena { get; set; }
 
-		public AkademskaGodina _AkademskaGodina { get; set; }
-		[ForeignKey(nameof(_AkademskaGodina))]
-		public int _AkademskaGodinaId { get; set; }
-
+		
 		public Soba _Soba { get; set; }
 		[ForeignKey(nameof(_Soba))]
 		public int _SobaId { get; set; }

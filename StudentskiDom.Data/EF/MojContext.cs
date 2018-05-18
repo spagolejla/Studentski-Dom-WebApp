@@ -55,15 +55,15 @@ namespace StudentskiDom.Data.EF
 
                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<StudentSoba>()
+            //modelBuilder.Entity<StudentSoba>()
 
-               .HasOne(ag => ag._AkademskaGodina)
+            //   .HasOne(ag => ag._AkademskaGodina)
 
-               .WithMany()
+            //   .WithMany()
 
-               .HasForeignKey(ag => ag._AkademskaGodinaId)
+            //   .HasForeignKey(ag => ag._AkademskaGodinaId)
 
-               .OnDelete(DeleteBehavior.Restrict);
+            //   .OnDelete(DeleteBehavior.Restrict);
 
 
           
@@ -73,23 +73,24 @@ namespace StudentskiDom.Data.EF
 
 
         public DbSet<Drzava> Drzave { get; set; }
-		public DbSet<Regija> Regije { get; set; }
+		
 		public DbSet<Grad> Gradovi { get; set; }
-		public DbSet<AkademskaGodina> AkademskeGodine { get; set; }
+	
 		public DbSet<Fakultet> Fakulteti { get; set; }
 		public DbSet<Student> Studenti { get; set; }
 		public DbSet<Posjetilac> Pojsjetioci { get; set; }
 		public DbSet<VrstaZaposlenika> VrsteZaposlenika { get; set; }
 		public DbSet<Zaposlenik> Zaposlenici { get; set; }
         public DbSet<KorisnickiNalog> KorisnickiNalozi { get; set; }
+		public DbSet<Obavijesti> Obavijesti { get; set; }
 
-        public DbSet<Soba> Sobe { get; set; }
+		public DbSet<Soba> Sobe { get; set; }
 		public DbSet<Sala> Sale { get; set; }
 		public DbSet<TipUplate> TipoviUplata { get; set; }
 		public DbSet<TipSobe> TipoviSoba { get; set; }
-		public DbSet<VesMasina> VesMasine { get; set; }
+		
 		public DbSet<StudentSoba> StudentiSobe { get; set; }
-		public DbSet<TerminVeseraja> TerminiVeseraja { get; set; }
+		
 		public DbSet<RezervacijaSale> RezervacijeSale { get; set; }
 		public DbSet<Uplata> Uplate { get; set; }
 

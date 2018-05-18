@@ -4,12 +4,12 @@
 	Layout = "~/Views/Shared/_Layout-novi2.cshtml";
 }
 @model StudentiDodajVM
-@*@if (!ViewData.ModelState.IsValid)
+@if (!ViewData.ModelState.IsValid)
 {
 	<span class="alert-danger">
 		@Html.ValidationSummary()
 	</span>
-}*@
+}
 <ol class="breadcrumb">
 	<li>
 		<a href="/RecepcionerModul" class="breadcrumb-item" style="color:cadetblue;font-size:x-large;text-decoration:none">Modul recepcioner</a>
@@ -43,7 +43,10 @@
 					<div class="col-md-6">
 
 						<label>Spol:</label>
-						<input type="text" asp-for="@Model.Spol" required class="form-control" />
+						<select asp-for="@Model.Spol" class="form-control">
+							<option value="M">Musko</option>
+							<option value="Z">Zensko</option>
+						</select>
 					</div>
 					<div class="col-md-6">
 						<label>Datum rodjena:</label>
