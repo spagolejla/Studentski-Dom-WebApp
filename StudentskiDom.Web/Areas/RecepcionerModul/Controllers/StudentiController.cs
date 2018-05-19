@@ -429,6 +429,11 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 			_context.StudentiSobe.Add(noviSS);
 			_context.SaveChanges();
 
+			Soba s = _context.Sobe.Where(x => x.Id == noviSS._SobaId).FirstOrDefault();
+			s.BrojKreveta++;
+			_context.Sobe.Update(s);
+			_context.SaveChanges();
+
 				return Redirect("/RecepcionerModul/Studenti/Index");
 		}
 	}

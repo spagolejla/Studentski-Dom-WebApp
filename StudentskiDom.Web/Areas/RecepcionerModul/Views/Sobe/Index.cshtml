@@ -15,9 +15,6 @@
 	<h2 style="display:inline-block">Pregled po sobama</h2> <a href="/RecepcionerModul" class="btn btn-primary" style="float:right;margin-right:10px">Nazad</a>
 </div>
 <hr />
-
-
-
 <div class="card mb-3">
 	<div class="card-header">
 		<i class="fa fa-table"></i> Pregled soba
@@ -32,7 +29,7 @@
 						<th>Sprat</th>
 						<th>Popunjeno kreveta</th>
 						<th>Studenti</th>
-						@*<th>Akcija</th>*@
+						<th>Akcija</th>
 
 
 					</tr>
@@ -44,7 +41,7 @@
 						<th>Sprat</th>
 						<th>Popunjeno kreveta</th>
 						<th>Studenti</th>
-						@*<th>Akcija</th>*@
+						<th>Akcija</th>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -60,7 +57,7 @@
 							<td>
 								@foreach (var r in x.Lista)
 	{
-								<div>@r._Student.Ime @r._Student.Prezime </div>
+								<div style="display:inline-block"><div >@r._Student.Ime @r._Student.Prezime</div> <div ><a href="/RecepcionerModul/Sobe/OdjaviStudenta?id=@r.Id">(Odjavi iz sobe)</a></div></div>
 
 					
 }
@@ -73,12 +70,12 @@
 
 							}
 							
-									@*@if (x.PopunjenoKreveta < 3)
+									@if (x.PopunjenoKreveta < 3)
 									{
-									<td><a href="#">Dodaj</a></td>}
+									<td><a href="/RecepcionerModul/Sobe/DodajStudenta?id=@x.Id" class="btn btn-success">Dodaj jos studenata</a></td>}
 									else
 									{
-									<td>Popunjeno</td>}**@
+									<td>Popunjeno</td>}*
 
 
 								

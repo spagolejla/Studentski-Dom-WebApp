@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentskiDom.Data.EF;
 using StudentskiDom.Data.Models;
@@ -48,17 +49,80 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 			};
 
 
-
-
-
-			
-
-
-
-
-
-
 			return View(model);
         }
-    }
+
+		public IActionResult DodajStudenta(int id) {
+
+			SobeDodajStudentaVM model = new SobeDodajStudentaVM
+			{
+				SobaId = id,
+				Naziv = _context.Sobe.Where(x => x.Id == id).FirstOrDefault().Naziv,
+
+				Zaposlenici = _context.Zaposlenici.Where(z=>z._VrstaZaposlenika.Naziv=="Recepcioner").Select(s => new SelectListItem
+				{
+					Value = s.Id.ToString(),
+					Text = s.Ime + " " + s.Prezime
+				}).ToList(),
+
+				 Studenti= _context.Studenti.Select(s => new SelectListItem
+				{
+					Value = s.Id.ToString(),
+					Text = s.Ime + " " + s.Prezime
+				}).ToList()
+
+
+			};
+
+			List<StudentSoba> listaZauzetihStudenata = _context.StudentiSobe.Select(x => new StudentSoba {
+				_Student=x._Student,
+				_StudentId=x._StudentId
+			}).ToList();
+
+			for (int i = 0; i < model.Studenti.Count; i++)
+			{
+				for (int j = 0; j < listaZauzetihStudenata.Count; j++)
+				{
+					if (model.Studenti[i].Value==listaZauzetihStudenata[j]._StudentId.ToString())
+					{
+						model.Studenti.Remove(model.Studenti[i]);
+					}
+				}
+			}
+
+
+			return View("DodajStudenta",model);
+		}
+		public IActionResult SnimiDodavanjeStudenta(SobeDodajStudentaVM model) {
+			StudentSoba noviSS = new StudentSoba();
+
+			noviSS.DatumDodjele = DateTime.Now;
+			noviSS._SobaId = model.SobaId;
+			noviSS._StudentId = (int)model.StudentID;
+			noviSS._ZaposlenikId = (int)model.ZaposlnikID;
+			noviSS.Napomena = model.Napomena;
+			_context.StudentiSobe.Add(noviSS);
+			_context.SaveChanges();
+
+			Soba s = _context.Sobe.Where(x => x.Id == model.SobaId).FirstOrDefault();
+			s.BrojKreveta++;
+			_context.Sobe.Update(s);
+			_context.SaveChanges();
+
+			return Redirect("/RecepcionerModul/Sobe/Index");
+		}
+		public IActionResult OdjaviStudenta(int id)
+		{
+
+			StudentSoba ss = _context.StudentiSobe.Where(x => x.Id == id).FirstOrDefault();
+			Soba s = _context.Sobe.Where(x => x.Id == ss._SobaId).FirstOrDefault();
+			s.BrojKreveta--;
+			_context.Sobe.Update(s);
+			_context.SaveChanges();
+			_context.StudentiSobe.Remove(ss);
+			_context.SaveChanges();
+
+			return Redirect("/RecepcionerModul/Sobe");
+		}
+	}
 }
