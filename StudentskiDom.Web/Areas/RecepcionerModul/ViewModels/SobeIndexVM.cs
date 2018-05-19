@@ -17,7 +17,7 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.ViewModels
 			public string TipSobe { get; set; }
 			public int Sprat { get; set; }
 			public List<Student> Studenti { get; set; }
-			public List<StudentSoba> lista { get; set; }
+			public List<StudentSoba> Lista { get; set; }
 			
 
 		}

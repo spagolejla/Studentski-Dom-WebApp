@@ -32,7 +32,7 @@
 						<th>Sprat</th>
 						<th>Popunjeno kreveta</th>
 						<th>Studenti</th>
-						<th>Akcija</th>
+						@*<th>Akcija</th>*@
 
 
 					</tr>
@@ -44,7 +44,7 @@
 						<th>Sprat</th>
 						<th>Popunjeno kreveta</th>
 						<th>Studenti</th>
-						<th>Akcija</th>
+						@*<th>Akcija</th>*@
 					</tr>
 				</tfoot>
 				<tbody>
@@ -55,30 +55,33 @@
 							<td>@x.TipSobe</td>
 							<td>@x.Sprat</td>
 							<td>@x.PopunjenoKreveta</td>
-							@if (x.lista.Count > 0)
+							@if (x.Lista.Count > 0)
 							{
-								<td>
-									@foreach (var r in x.lista)
-									{
-										//<p>@r._Student.Ime +r._Student.Prezime + ',';</p> //ne znam kako imena studenata dobiti
-									}
+							<td>
+								@foreach (var r in x.Lista)
+	{
+								<div>@r._Student.Ime @r._Student.Prezime </div>
 
-								</td>
+					
+}
+
+							</td>
 							}
 							else
 							{
 								<td>U sobi nema studenata</td>
 
 							}
-							@if (x.PopunjenoKreveta < 3)
-							{
-								<td><a href="#">Dodaj</a></td>}
-							else
-							{
-								<td>Popunjeno</td>}
+							
+									@*@if (x.PopunjenoKreveta < 3)
+									{
+									<td><a href="#">Dodaj</a></td>}
+									else
+									{
+									<td>Popunjeno</td>}**@
 
 
-
+								
 						</tr>
 					}
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentskiDom.Data.EF;
+using StudentskiDom.Data.Models;
 using StudentskiDom.Web.Areas.RecepcionerModul.ViewModels;
 
 namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
@@ -20,21 +22,40 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 		public IActionResult Index()
         {
-			SobeIndexVM model = new SobeIndexVM {
-				Rows = _context.Sobe.Select(x => new SobeIndexVM.Row {
+			SobeIndexVM model = new SobeIndexVM
+			{
+				Rows = _context.Sobe.Select(x => new SobeIndexVM.Row
+				{
 					Id = x.Id,
 					Naziv = x.Naziv,
 					Sprat = x.Sprat,
 					TipSobe = x._TipSobe.Naziv,
 					PopunjenoKreveta = x.BrojKreveta,
-				    lista=_context.StudentiSobe.Where(r=>r._SobaId==x.Id).ToList()
-					
+					Lista = _context.StudentiSobe.Where(r => r._SobaId == x.Id).Select(s => new StudentSoba
+					{
+						Id = s.Id,
+						_Student = s._Student,
+						_StudentId = s._StudentId,
+						_SobaId = s._SobaId,
+						DatumDodjele = s.DatumDodjele,
+						_ZaposlenikId = s._ZaposlenikId,
+						Napomena = s.Napomena
 
+
+					}).ToList()
 				}).ToList()
+				
+			};
 
 
-		};
+
+
+
 			
+
+
+
+
 
 
 			return View(model);
