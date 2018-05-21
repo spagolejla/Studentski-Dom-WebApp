@@ -25,12 +25,16 @@ namespace StudentskiDom.Web.Areas.StudentModul.Controllers
         {
 			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
 			Student student = _context.Studenti.Where(x => x.KorisnickiNalogId == korisnik.Id).FirstOrDefault();
+
+		
 			if (korisnik == null || student == null)
 			{
 				TempData["error_poruka"] = "Nemate pravo pristupa!";
 				return Redirect("/Autentifikacija/Index");
-			}
-			StudentiDetaljiVM model =_context.Studenti.Where(x=>x.Id==student.Id).Select(ss=> new StudentiDetaljiVM
+	}
+	StudentiDetaljiVM model = new StudentiDetaljiVM();
+
+	model=	_context.Studenti.Where(x=>x.Id==student.Id).Select(ss=> new StudentiDetaljiVM
 			{
 				Ime = ss.Ime,
 				Prezime = ss.Prezime,
@@ -49,9 +53,9 @@ namespace StudentskiDom.Web.Areas.StudentModul.Controllers
 				Telefon=ss.Telefon
 
 
-			}).FirstOrDefault();
+}).FirstOrDefault();
 
-            return View("LicniPodaci",model);
+            return View("LicniPodaci", model);
         }
 
 		public IActionResult KorisnickiRacunPodaci() {

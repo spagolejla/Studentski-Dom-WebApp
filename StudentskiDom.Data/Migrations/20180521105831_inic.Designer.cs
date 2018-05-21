@@ -11,8 +11,8 @@ using System;
 namespace StudentskiDom.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    [Migration("20180505121537_inicijalna1")]
-    partial class inicijalna1
+    [Migration("20180521105831_inic")]
+    partial class inic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -286,7 +286,7 @@ namespace StudentskiDom.Data.Migrations
 
                     b.Property<double>("Iznos");
 
-                    b.Property<int>("_StudentSobaId");
+                    b.Property<int>("_StudentId");
 
                     b.Property<int>("_TipUplateId");
 
@@ -294,7 +294,7 @@ namespace StudentskiDom.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_StudentSobaId");
+                    b.HasIndex("_StudentId");
 
                     b.HasIndex("_TipUplateId");
 
@@ -425,9 +425,9 @@ namespace StudentskiDom.Data.Migrations
 
             modelBuilder.Entity("StudentskiDom.Data.Models.Uplata", b =>
                 {
-                    b.HasOne("StudentskiDom.Data.Models.StudentSoba", "_StudentSoba")
+                    b.HasOne("StudentskiDom.Data.Models.Student", "_Student")
                         .WithMany()
-                        .HasForeignKey("_StudentSobaId")
+                        .HasForeignKey("_StudentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudentskiDom.Data.Models.TipUplate", "_TipUplate")

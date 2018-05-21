@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace StudentskiDom.Data.Migrations
 {
-    public partial class inicijalna1 : Migration
+    public partial class inic : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -348,7 +348,7 @@ namespace StudentskiDom.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Datum = table.Column<DateTime>(nullable: false),
                     Iznos = table.Column<double>(nullable: false),
-                    _StudentSobaId = table.Column<int>(nullable: false),
+                    _StudentId = table.Column<int>(nullable: false),
                     _TipUplateId = table.Column<int>(nullable: false),
                     _ZaposlenikId = table.Column<int>(nullable: false)
                 },
@@ -356,9 +356,9 @@ namespace StudentskiDom.Data.Migrations
                 {
                     table.PrimaryKey("PK_Uplate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Uplate_StudentiSobe__StudentSobaId",
-                        column: x => x._StudentSobaId,
-                        principalTable: "StudentiSobe",
+                        name: "FK_Uplate_Studenti__StudentId",
+                        column: x => x._StudentId,
+                        principalTable: "Studenti",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -436,9 +436,9 @@ namespace StudentskiDom.Data.Migrations
                 column: "_ZaposlenikId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Uplate__StudentSobaId",
+                name: "IX_Uplate__StudentId",
                 table: "Uplate",
-                column: "_StudentSobaId");
+                column: "_StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Uplate__TipUplateId",
@@ -475,6 +475,9 @@ namespace StudentskiDom.Data.Migrations
                 name: "RezervacijeSale");
 
             migrationBuilder.DropTable(
+                name: "StudentiSobe");
+
+            migrationBuilder.DropTable(
                 name: "Uplate");
 
             migrationBuilder.DropTable(
@@ -484,16 +487,13 @@ namespace StudentskiDom.Data.Migrations
                 name: "Sale");
 
             migrationBuilder.DropTable(
-                name: "StudentiSobe");
-
-            migrationBuilder.DropTable(
-                name: "TipoviUplata");
-
-            migrationBuilder.DropTable(
                 name: "Sobe");
 
             migrationBuilder.DropTable(
                 name: "Studenti");
+
+            migrationBuilder.DropTable(
+                name: "TipoviUplata");
 
             migrationBuilder.DropTable(
                 name: "Zaposlenici");

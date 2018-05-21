@@ -285,7 +285,7 @@ namespace StudentskiDom.Data.Migrations
 
                     b.Property<double>("Iznos");
 
-                    b.Property<int>("_StudentSobaId");
+                    b.Property<int>("_StudentId");
 
                     b.Property<int>("_TipUplateId");
 
@@ -293,7 +293,7 @@ namespace StudentskiDom.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_StudentSobaId");
+                    b.HasIndex("_StudentId");
 
                     b.HasIndex("_TipUplateId");
 
@@ -424,9 +424,9 @@ namespace StudentskiDom.Data.Migrations
 
             modelBuilder.Entity("StudentskiDom.Data.Models.Uplata", b =>
                 {
-                    b.HasOne("StudentskiDom.Data.Models.StudentSoba", "_StudentSoba")
+                    b.HasOne("StudentskiDom.Data.Models.Student", "_Student")
                         .WithMany()
-                        .HasForeignKey("_StudentSobaId")
+                        .HasForeignKey("_StudentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudentskiDom.Data.Models.TipUplate", "_TipUplate")

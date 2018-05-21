@@ -41,7 +41,7 @@ namespace StudentskiDom.Web.Areas.StudentModul.Controllers
 					zaSve = x.zaSve,
 					zaZaposlenike = x.samoZaposlenicima,
 					PostavioZaposlenik = x._Zaposlenik.Ime + " " + x._Zaposlenik.Prezime
-				}).OrderBy(s=>s.Datum).ToList()
+				}).OrderByDescending(s => s.Datum).ToList()
 			};
 
 

@@ -14,9 +14,9 @@ namespace StudentskiDom.Data.Models
 		public double Iznos { get; set; }
 		public DateTime Datum { get; set; }
 
-		public StudentSoba _StudentSoba { get; set; }
-		[ForeignKey(nameof(_StudentSoba))]
-		public int _StudentSobaId { get; set; }
+		public Student _Student { get; set; }
+		[ForeignKey(nameof(_Student))]
+		public int _StudentId { get; set; }
 
 		public Zaposlenik _Zaposlenik { get; set; }
 		[ForeignKey(nameof(_Zaposlenik))]
