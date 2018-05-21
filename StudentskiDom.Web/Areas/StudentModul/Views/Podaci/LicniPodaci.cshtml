@@ -1,18 +1,18 @@
 ﻿@using StudentskiDom.Web.Areas.RecepcionerModul.ViewModels
 @{
-	ViewData["Title"] = "Detalji";
-	Layout = "~/Views/Shared/_Layout-novi2.cshtml";
+	ViewData["Title"] = "LicniPodaci";
+	Layout = "~/Views/Shared/_LayoutStudentModul.cshtml";
 }
 @model StudentiDetaljiVM
 <ol class="breadcrumb">
 	<li>
-		<a href="/StudentModul" class="breadcrumb-item" style="color:cadetblue;font-size:x-large;text-decoration:none">Modul recepcioner</a>
+		<a href="/StudentModul" class="breadcrumb-item" style="color:cadetblue;font-size:x-large;text-decoration:none">Modul student</a>
 	</li>
 
 </ol>
-<hr>
+<hr />
 <div>
-	<h2 style="display:inline-block">Detalji studenta @Model.Ime  @Model.Prezime </h2> <a href="/RecepcionerModul/Studenti/Index" class="btn btn-primary" style="float:right">Nazad</a>
+	<h2 style="display:inline-block">Vaši podaci</h2><a href="/StudentModul" class="btn btn-primary" style="float:right;margin-right:10px">Nazad</a>
 </div>
 <hr />
 <div class="card mb-3">
@@ -20,7 +20,7 @@
 		<i class="fa fa-table"></i> Osnovni podaci
 	</div>
 	<div class="card-body">
-		<form >
+		<form>
 			<div class="form-group">
 				<div class="form-row">
 					<div class="col-md-6">
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 		</form>
-		<a type="submit" class="btn btn-outline-secondary" style="float:right" href="/RecepcionerModul/Studenti/Edit?id=@Model.Id">Ažuriraj</a>
+
 
 	</div>
 
@@ -84,50 +84,13 @@
 			</div>
 
 
-			
+
 
 
 
 
 		</form>
-		<a type="submit" class="btn btn-outline-secondary" style="float:right" href="/RecepcionerModul/Studenti/Edit?id=@Model.Id">Ažuriraj</a>
 
-	</div>
-</div>
-
-<div class="card mb-3">
-	<div class="card-header">
-		<i class="fa fa-table"></i> Korisnicki i statusni podaci
-	</div>
-	<div class="card-body">
-		<form>
-			<div class="form-group">
-				<div class="form-row">
-					<div class="col-md-6">
-						<label>Username</label>
-						<input type="text" readonly value="@Model.Username" style="border:none" class="form-control" />
-					</div><div class="col-md-6">
-						<label>Password</label>
-						<input type="text" readonly value="@Model.Password" style="border:none" class="form-control" />
-
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label>Nalazi se u sobi</label>
-				<input type="text" readonly value="@Model.Soba_" style="border:none" class="form-control" />
-			</div>
-			@*<div class="form-group">
-							<label>Studenti sa kojima dijeli sobu</label>
-							@foreach (var x in Model.studentiSaKojimaDijeliSobu)
-				{
-						<input type="text" readonly value="@x" style="border:none" class="form-control" />
-			}
-						</div>*@
-
-		
-		</form>
-		<a type="submit" class="btn btn-outline-secondary" style="float:right" href="/RecepcionerModul/Studenti/Edit?id=@Model.Id">Ažuriraj</a>
 
 	</div>
 </div>

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using StudentskiDom.Data.EF;
 using StudentskiDom.Data.Models;
 using StudentskiDom.Web.Areas.RecepcionerModul.ViewModels;
+using StudentskiDom.Web.Helper;
+
 
 namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 {
@@ -23,6 +25,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 		public IActionResult Index()
         {
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			RezervacijeIndexVM model = new RezervacijeIndexVM
 			{
 				Rows = _context.RezervacijeSale.Select(x=>new RezervacijeIndexVM.Row {
@@ -43,6 +52,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult SaleDetalji()
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			SaleDetaljiVM model = new SaleDetaljiVM
 			{
 				Rows = _context.Sale.Select(x => new SaleDetaljiVM.Row
@@ -57,6 +73,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 
 		public IActionResult DodajPosjetioca() {
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			PosjetilacDodajVM model = new PosjetilacDodajVM();
 
 			return View("DodajPosjetioca",model);
@@ -64,6 +87,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult SnimiDodajPosjetioca(PosjetilacDodajVM model)
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			Posjetilac noviPosjetilac = new Posjetilac
 			{
 				Ime = model.Ime,
@@ -81,6 +111,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult DodajRezervaciju(DateTime searchDate)
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			DodajRezervacijuVM model = new DodajRezervacijuVM
 			{
 				Zaposlenici = _context.Zaposlenici.Where(x => x._VrstaZaposlenika.Naziv == "Recepcioner").Select(p => new SelectListItem
@@ -138,7 +175,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult SnimiNovuRezervaciju(DodajRezervacijuVM model)
 		{
-			
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			RezervacijaSale novaRezervacija = new RezervacijaSale();
 
 			novaRezervacija.Datum = model.Datum;
@@ -147,7 +190,7 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 			   novaRezervacija.UkupnaCijena = model.BrojSati * _context.Sale.Where(x => x.Id== model.DvoranaID).FirstOrDefault().CijenaPoSatu;
 				novaRezervacija._SalaId = (int)model.DvoranaID;
 				novaRezervacija._PosjetilacId = (int)model.PosjetilacID;
-				novaRezervacija._ZaposlenikId = (int)model.ZaposlnikID;
+				novaRezervacija._ZaposlenikId = z.Id;
 
 			
 
@@ -159,6 +202,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult ObrisiRezervaciju(int id)
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			RezervacijaSale rs = _context.RezervacijeSale.Where(x => x.Id == id).FirstOrDefault();
 
 			_context.RezervacijeSale.Remove(rs);

@@ -7,12 +7,12 @@ using StudentskiDom.Data.EF;
 using StudentskiDom.Data.Models;
 using StudentskiDom.Web.Helper;
 
-namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
-{
-	[Area("RecepcionerModul")]
-	public class HomeController : Controller
-    {
 
+namespace StudentskiDom.Web.Areas.StudentModul.Controllers
+{
+	[Area("StudentModul")]
+    public class HomeController : Controller
+    {
 		private readonly MojContext _context;
 
 		public HomeController(MojContext db)
@@ -21,15 +21,15 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 
 		public IActionResult Index()
-        {
+		{
 			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
-			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
-			if (korisnik==null || z==null || z._VrstaZaposlenikaId!=1)
+			Student ss = _context.Studenti.Where(x => x.KorisnickiNalogId == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || ss == null )
 			{
 				TempData["error_poruka"] = "Nemate pravo pristupa!";
 				return Redirect("/Autentifikacija/Index");
 			}
-            return View();
-        }
-    }
+			return View();
+		}
+	}
 }

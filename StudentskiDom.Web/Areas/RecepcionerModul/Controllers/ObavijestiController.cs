@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentskiDom.Data.EF;
 using StudentskiDom.Data.Models;
 using StudentskiDom.Web.Areas.RecepcionerModul.ViewModels;
+using StudentskiDom.Web.Helper;
+
 
 namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 {
@@ -21,6 +23,14 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 		public IActionResult Index()
         {
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
+
 			ObavijestiIndexVM model = new ObavijestiIndexVM
 			{
 				Rows = _context.Obavijesti.Select(x => new ObavijestiIndexVM.Row
@@ -33,7 +43,7 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 					zaSve=x.zaSve,
 					zaZaposlenike=x.samoZaposlenicima,
 					PostavioZaposlenik=x._Zaposlenik.Ime+" "+x._Zaposlenik.Prezime
-				}).ToList()
+				}).OrderBy(s=>s.Datum).ToList()
 			};
 				
 				
@@ -45,6 +55,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult Dodaj()
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 
 			ObavijestiDodajVM model = new ObavijestiDodajVM
 			{
@@ -65,6 +82,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult Snimi(ObavijestiDodajVM model)
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			if (!ModelState.IsValid)
 			{
 				model.Datum = DateTime.Now;
@@ -81,7 +105,7 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 				Datum = model.Datum,
 				Sadrzaj = model.Sadrzaj,
 				Naslov = model.Naslov,
-				_ZaposlenikId = model.ZaposlenikID,
+				_ZaposlenikId = z.Id,
 				zaSve =model.zaSve, 
 				samoZaposlenicima =!model.zaSve,
 				procitana=false
@@ -96,6 +120,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 
 		public IActionResult Obrisi(int id)
 		{
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 
 			Obavijesti ob = _context.Obavijesti.Where(x => x.Id == id).FirstOrDefault();
 			_context.Obavijesti.Remove(ob);

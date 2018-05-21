@@ -31,10 +31,7 @@
     <Folder Include="Areas\ManagerModul\Models\" />
     <Folder Include="Areas\ManagerModul\Views\" />
     <Folder Include="Areas\RecepcionerModul\Data\" />
-    <Folder Include="Areas\StudentModul\Controllers\" />
     <Folder Include="Areas\StudentModul\Data\" />
-    <Folder Include="Areas\StudentModul\ViewModels\" />
-    <Folder Include="Areas\StudentModul\Views\" />
     <Folder Include="wwwroot\vendor\" />
   </ItemGroup>
 

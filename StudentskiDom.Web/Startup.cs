@@ -59,7 +59,7 @@ namespace StudentskiDom.Web
 
 				routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Autentifikacija}/{action=Index}/{id?}");
 
 
             });

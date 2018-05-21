@@ -1,5 +1,4 @@
-﻿
-@using Microsoft.AspNetCore.Http;
+﻿@using Microsoft.AspNetCore.Http;
 @using StudentskiDom.Data.Models;
 @using StudentskiDom.Web.Helper;
 @{
@@ -30,17 +29,24 @@
 	<link href="~/css/sb-admin.css" rel="stylesheet">
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-	
+
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-		<a class="navbar-brand" href="/RecepcionerModul">Studentski dom Mostar</a>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top" id="mainNav">
+		<a class="navbar-brand" href="/StudentModul">Studentski dom Mostar</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-					<a class="nav-link" href="/RecepcionerModul">
+					<a class="nav-link" href="/StudentModul">
+
+						<span class="nav-link-text">@korisnik.KorisnickoIme</span>
+					</a><hr />
+				</li>
+
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+					<a class="nav-link" href="/StudentModul">
 						<i class="fa fa-fw fa-dashboard"></i>
 						<span class="nav-link-text">Početna</span>
 					</a>
@@ -48,14 +54,14 @@
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
 					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
 						<i class="fa fa-fw fa-pencil-square-o"></i>
-						<span class="nav-link-text">Studenti</span>
+						<span class="nav-link-text">Moji podaci</span>
 					</a>
 					<ul class="sidenav-second-level collapse" id="collapseComponents">
 						<li>
-							<a href="/RecepcionerModul/Studenti/Index">Prikazi studente</a>
+							<a href="/StudentModul/Podaci/LicniPodaci">Licni  podaci</a>
 						</li>
 						<li>
-							<a href="/RecepcionerModul/Studenti/Dodaj">Dodaj novog</a>
+							<a href="/StudentModul/Podaci/KorisnickiRacunPodaci">Podaci o korisnickom racunu</a>
 						</li>
 					</ul>
 				</li>
@@ -68,24 +74,17 @@
 						<li>
 							<a href="login.html">Prikazi uplate</a>
 						</li>
-						<li>
-							<a href="register.html">Dodaj novu</a>
-						</li>
+
 
 					</ul>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-					<a class="nav-link" href="/RecepcionerModul/Sobe/Index">
+					<a class="nav-link" href="#">
 						<i class="fa fa-fw fa-hotel"></i>
-						<span class="nav-link-text">Sobe</span>
+						<span class="nav-link-text">Raspored u sobi</span>
 					</a>
 				</li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-					<a class="nav-link" href="/RecepcionerModul/Rezervacija/Index">
-						<i class="fa fa-fw fa-soccer-ball-o"></i>
-						<span class="nav-link-text">Sale</span>
-					</a>
-				</li>
+
 
 
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
@@ -97,11 +96,9 @@
 						<li>
 							<a href="/RecepcionerModul/Obavijesti/Index">Lista obavijesti</a>
 						</li>
-						<li>
-							<a href="/RecepcionerModul/Obavijesti/Dodaj">Dodaj novu obavijest</a>
-						</li>
-						
-					
+
+
+
 					</ul>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
@@ -119,18 +116,16 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link" href="/RecepcionerModul">
-						<i class="fa"></i><h4 style="display:inline">Dobro došli, @korisnik.KorisnickoIme</h4>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/StudentModul">
+						<h5 style="display:inline">Dobro došli  @korisnik.KorisnickoIme</h5>
 					</a>
-					
-						
 				</li>
-			
-				
+
 				<li class="nav-item">
 					<a class="nav-link" href="/Autentifikacija/Logout">
-						<i class="fa fa-fw fa-sign-out"></i><h4 style="display:inline">Logout</h4>
+						<i class="fa fa-fw fa-sign-out"></i><h5 style="display:inline">Logout</h5>
 					</a>
 				</li>
 			</ul>
@@ -139,48 +134,48 @@
 	<div class="content-wrapper">
 		<div class="container-fluid">
 			@RenderBody()
-		
+
+		</div>
+	</div>
+	<!-- /.container-fluid-->
+	<!-- /.content-wrapper-->
+	<footer class="sticky-footer">
+		<div class="container">
+			<div class="text-center">
+				<small>Copyright © Studentski dom Mostar 2018</small>
 			</div>
 		</div>
-		<!-- /.container-fluid-->
-		<!-- /.content-wrapper-->
-		<footer class="sticky-footer">
-			<div class="container">
-				<div class="text-center">
-					<small>Copyright © Studentski dom Mostar 2018</small>
+	</footer>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fa fa-angle-up"></i>
+	</a>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
 				</div>
-			</div>
-		</footer>
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top">
-			<i class="fa fa-angle-up"></i>
-		</a>
-		<!-- Logout Modal-->
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
+				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
 		</div>
+	</div>
 	<div>
-		<!-- Bootstrap core JavaScript-->
-		<script src="~/vendor/jquery/jquery.min.js"></script>
-		<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Core plugin JavaScript-->
-		<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
-		<!-- Custom scripts for all pages-->
-		<script src="~/js/sb-admin.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="~/vendor/jquery/jquery.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="~/js/sb-admin.min.js"></script>
 	</div>
 	@RenderSection("Scripts", required: false)
 

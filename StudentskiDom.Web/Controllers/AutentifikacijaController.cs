@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentskiDom.Data.EF;
 using StudentskiDom.Data.Models;
+using StudentskiDom.Web.Helper;
 using StudentskiDom.Web.ViewModel;
 
 namespace StudentskiDom.Web.Controllers
@@ -39,9 +41,46 @@ namespace StudentskiDom.Web.Controllers
 				return View("Index", input);
 			}
 
-			//HttpContext.SetLogiraniKorisnik(korisnik, input.ZapamtiPassword);
+			HttpContext.SetLogiraniKorisnik(korisnik, input.ZapamtiPassword);
 
-			return RedirectToAction("Index", "Home");
+			bool isStudent=false, isRecepcioner=false, isManager=false;
+
+			Student s = _db.Studenti.Where(x => x.KorisnickiNalogId == korisnik.Id).FirstOrDefault();
+			Zaposlenik z= _db.Zaposlenici.Where(x => x.KorisnickiNalogId == korisnik.Id).FirstOrDefault();
+
+			if (s!=null)
+			{
+				isStudent = true;
+			}
+			else if (z!=null)
+			{
+				if (z._VrstaZaposlenikaId==1) //1 jer je u bazi Recepcioner sa id 1
+				{
+					isRecepcioner = true;
+				}
+				else
+				{
+					isManager = true;
+				}
+			}
+
+			if (isStudent)
+			{
+				return Redirect("/StudentModul/Home/Index");
+			}
+			if (isRecepcioner)
+			{
+				return Redirect("/RecepcionerModul/Home/Index");
+			}
+
+			else 
+			{
+				return Redirect("/RecepcionerModul/Home/Index");
+				//isManager jos uvijek ne postoji ovaj modul
+			}
+			
+
+			
 		}
 
 		public IActionResult Logout()

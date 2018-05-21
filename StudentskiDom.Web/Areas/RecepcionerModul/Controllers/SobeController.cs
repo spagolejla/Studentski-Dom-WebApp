@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentskiDom.Data.EF;
 using StudentskiDom.Data.Models;
 using StudentskiDom.Web.Areas.RecepcionerModul.ViewModels;
+using StudentskiDom.Web.Helper;
 
 namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 {
@@ -23,6 +24,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 		public IActionResult Index()
         {
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			SobeIndexVM model = new SobeIndexVM
 			{
 				Rows = _context.Sobe.Select(x => new SobeIndexVM.Row
@@ -53,7 +61,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
         }
 
 		public IActionResult DodajStudenta(int id) {
-
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik zz = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || zz == null || zz._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			SobeDodajStudentaVM model = new SobeDodajStudentaVM
 			{
 				SobaId = id,
@@ -94,12 +108,20 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 			return View("DodajStudenta",model);
 		}
 		public IActionResult SnimiDodavanjeStudenta(SobeDodajStudentaVM model) {
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
+
 			StudentSoba noviSS = new StudentSoba();
 
 			noviSS.DatumDodjele = DateTime.Now;
 			noviSS._SobaId = model.SobaId;
 			noviSS._StudentId = (int)model.StudentID;
-			noviSS._ZaposlenikId = (int)model.ZaposlnikID;
+			noviSS._ZaposlenikId = z.Id;
 			noviSS.Napomena = model.Napomena;
 			_context.StudentiSobe.Add(noviSS);
 			_context.SaveChanges();
@@ -113,7 +135,13 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 		}
 		public IActionResult OdjaviStudenta(int id)
 		{
-
+			KorisnickiNalog korisnik = HttpContext.GetLogiraniKorisnik();
+			Zaposlenik z = _context.Zaposlenici.Where(x => x.Id == korisnik.Id).FirstOrDefault();
+			if (korisnik == null || z == null || z._VrstaZaposlenikaId != 1)
+			{
+				TempData["error_poruka"] = "Nemate pravo pristupa!";
+				return Redirect("/Autentifikacija/Index");
+			}
 			StudentSoba ss = _context.StudentiSobe.Where(x => x.Id == id).FirstOrDefault();
 			Soba s = _context.Sobe.Where(x => x.Id == ss._SobaId).FirstOrDefault();
 			s.BrojKreveta--;
