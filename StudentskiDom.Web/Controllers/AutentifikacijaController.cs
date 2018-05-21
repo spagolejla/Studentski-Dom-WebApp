@@ -85,7 +85,7 @@ namespace StudentskiDom.Web.Controllers
 
 		public IActionResult Logout()
 		{
-
+			HttpContext.Session.Clear();
 			return RedirectToAction("Index");
 		}
 	}
