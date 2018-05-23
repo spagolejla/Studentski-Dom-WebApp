@@ -43,7 +43,7 @@ namespace StudentskiDom.Web.Areas.RecepcionerModul.Controllers
 					zaposlenik=x._Zaposlenik.Ime+" "+x._Zaposlenik.Prezime,
 					posjetilac=x._Posjetilac.Ime+" "+x._Posjetilac.Prezime
 
-				}).OrderBy(s=>s.Datum).ToList()
+				}).OrderByDescending(s=>s.Datum).ToList()
 			};
             return View("Index",model);
         }

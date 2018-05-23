@@ -57,7 +57,7 @@
 							<td>
 								@foreach (var r in x.Lista)
 	{
-								<div style="display:inline-block"><div >@r._Student.Ime @r._Student.Prezime</div> <div ><a href="/RecepcionerModul/Sobe/OdjaviStudenta?id=@r.Id">(Odjavi iz sobe)</a></div></div>
+								<div style="display:block"><div style="display:inline">@r._Student.Ime @r._Student.Prezime</div> <div style="display:inline" ><a href="/RecepcionerModul/Sobe/OdjaviStudenta?id=@r.Id">(Odjavi iz sobe)</a></div></div>
 
 					
 }
