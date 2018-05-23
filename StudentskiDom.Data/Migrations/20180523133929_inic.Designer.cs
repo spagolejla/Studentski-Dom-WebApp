@@ -11,7 +11,7 @@ using System;
 namespace StudentskiDom.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    [Migration("20180521105831_inic")]
+    [Migration("20180523133929_inic")]
     partial class inic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
