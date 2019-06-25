@@ -6,5 +6,5 @@ Login podaci za testiranje:
 Username: TestRecepcioner
 Password: test
 
-Username: TestStudent
+Username: student
 Password: test
